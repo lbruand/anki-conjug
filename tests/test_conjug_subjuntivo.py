@@ -95,10 +95,41 @@ class MyTestCase(unittest.TestCase):
             templates=[
                 {
                     'name': 'Card 1',
-                    'qfmt': '{{Question}}',
-                    'afmt': '{{Answer}}',
+                    'qfmt': '<div class="box"><div class="box-inside">{{Question}}</div></div>',
+                    'afmt': '<div class="box"><div class="box-inside">{{Answer}}</div></div>',
                 },
-            ])
+            ],
+            css="""
+.card {
+  font-size: 20px;
+  text-align: center;
+  color: black;
+  background-image: url("_background_tiles2.jpg");
+}
+.box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    display: inline-block;
+    min-width: 92%;
+    min-height:35%;
+    background-color: rgba(255, 255, 255, 0.80);
+    border-radius: 10% 30% 50% 70%;
+}
+.box-inside {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    display: inline-block;
+    min-width: 92%;
+    color: black;
+}
+            """
+        )
         my_deck = genanki.Deck(
             205940084710,
             'Subjuntivo')
@@ -108,14 +139,10 @@ class MyTestCase(unittest.TestCase):
                 fields=[note.question,
                         note.response])
             my_deck.add_note(my_note)
-        #sentences = [
-        #    ("Busco una persona que ___ (saber) japonés.", "subjunctivo"),
-        #    ("Tengo un amigo que ___ (vivir) en Chile. ", "indicativo"),
-        #    ("¿Conoces a alguien que ___ (tocar) el violín?", "subjunctivo"),
-        #    ("Hay un chico aquí que ______ (hablar) italiano.", "indicativo"),
-        #]
-        #print(conjug['moods'].keys()) # ['subjuntivo'])
-        genanki.Package(my_deck).write_to_file(output_file)
+
+        my_package = genanki.Package(my_deck)
+        my_package.media_files = ['../img/_background_tiles2.jpg']
+        my_package.write_to_file(output_file)
         self.assertEqual(True, False)  # add assertion here
 
 
