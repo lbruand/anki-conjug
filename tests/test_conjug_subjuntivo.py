@@ -125,8 +125,10 @@ class MyTestCase(unittest.TestCase):
     transform: translate(-50%, -50%);
     box-sizing: border-box;
     display: inline-block;
-    min-width: 92%;
-    color: black;
+    min-width: 92%;    
+}
+.nightMode .box {
+    background-color: rgba(0, 0, 0, 0.80);
 }
             """
         )
